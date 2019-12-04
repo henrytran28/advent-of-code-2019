@@ -7,7 +7,7 @@ class ShipComputer:
             self.code = [int(x) for x in reader.readline().split(',')]
 
     def runProgram(self):
-        codeCopy = self.code
+        codeCopy = self.code[:]
         for i in range(0, len(codeCopy) - 3, 4):
             op, a, b, c = codeCopy[i], codeCopy[i+1], codeCopy[i+2], codeCopy[i+3]
             if op == 99:
@@ -24,8 +24,8 @@ class ShipComputer:
         self.code[2] = verb
 
     def getInputsFromTarget(self, target):
-        for i in range(99):
-            for j in range(99):
+        for i in range(100):
+            for j in range(100):
                 self.setAlarmState(i, j)
                 if shipComputer.runProgram() == target:
                     return i, j
@@ -39,7 +39,5 @@ print(output)
 
 # Part 2
 noun, verb = shipComputer.getInputsFromTarget(19690720)
-print(noun, verb)
-
-
-
+output2 = 100 * noun + verb
+print(output2)
