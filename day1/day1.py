@@ -1,25 +1,29 @@
 #!/usr/bin/env python3
-def findFuel(fileName):
-    totalFuel = 0
-    with open(fileName, 'r') as reader:
-        for mass in reader.readlines():
+
+class FuelCalculator:
+    def __init__(self, fileName):
+        self.fileName = fileName
+        with open(fileName, 'r') as reader:
+            self.moduleMasses = reader.readlines()
+
+    def findFuelNaive(self):
+        totalFuel = 0
+        for mass in self.moduleMasses:
             totalFuel += int(mass) // 3 - 2
 
-    return totalFuel
+        return totalFuel
 
-def findActualFuel(fileName):
-    totalFuel = 0
-    with open(fileName, 'r') as reader:
-        for mass in reader.readlines():
+    def findFuel(self):
+        totalFuel = 0
+        for mass in self.moduleMasses:
             fuel = int(mass) // 3 - 2
             while fuel > 0:
                 totalFuel += fuel
                 fuel = fuel // 3 - 2
 
-    return totalFuel
+        return totalFuel
 
 
-output = findFuel('input.txt')
-output2 = findActualFuel('input.txt')
-print(output)
-print(output2)
+fuelCalculator = FuelCalculator('input.txt')
+print(fuelCalculator.findFuelNaive())
+print(fuelCalculator.findFuel())
